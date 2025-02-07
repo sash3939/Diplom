@@ -181,9 +181,9 @@ prometheus-operator     ClusterIP   None            <none>        8443/TCP      
 
 ОДНИМ ИЗ ВАРИАНТОВ, УСТАНОВКА LB METALLB И INGRESS, ОДНАКО ДАЖЕ У ПРЕПОДАВАТЕЛЯ НЕ ЗАРАБОТАЛО С КУБСПРЕЕМ
 
-Описание установки MetalLB
-https://metallb.io/configuration/
-https://metallb.io/installation/
+## Описание установки MetalLB
+_https://metallb.io/configuration/_
+_https://metallb.io/installation/_
 
 0. Подключаемся к Cluster Kubernetes в Yandex
 Для этого в первую очередь необходимо:
