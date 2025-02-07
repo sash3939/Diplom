@@ -31,6 +31,7 @@
 ```bash
 git clone https://github.com/sash3939/Application.git
 ```
+[Application](https://github.com/sash3939/Application.git)
 
 Создадим в этом репозитории файл содержащую HTML-код ниже:  
 index.html
