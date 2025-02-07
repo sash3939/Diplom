@@ -62,7 +62,7 @@ COPY index.html /usr/share/nginx/html
       <br>
 
 ```bash
-root@ubuntu-VirtualBox:/home/ubuntu/Diploma-DevOPS-YC/3-Creating-test-application/mynginx# sudo docker build -t sash39/nginx:v1 .
+root@ubuntu-VirtualBox:/home/ubuntu/Diplom#/3Part/mynginx# sudo docker build -t sash39/nginx:v1 .
 [+] Building 21.0s (7/7) FINISHED                                                                                                     docker:default
  => [internal] load build definition from Dockerfile                                                                                            0.0s
  => => transferring dockerfile: 99B                                                                                                             0.0s
@@ -103,7 +103,7 @@ root@ubuntu-VirtualBox:/home/ubuntu/Diploma-DevOPS-YC/3-Creating-test-applicatio
 
 Проверим, что образ создался:
 ```bash
-root@ubuntu-VirtualBox:/home/ubuntu/Diploma-DevOPS-YC/3-Creating-test-application/mynginx# sudo docker images
+root@ubuntu-VirtualBox:/home/ubuntu/Diplom#/3Part/mynginx# sudo docker images
 REPOSITORY     TAG       IMAGE ID       CREATED          SIZE
 sash39/nginx   v1        1a39fed7c9f0   46 seconds ago   47MB
 
@@ -111,16 +111,16 @@ sash39/nginx   v1        1a39fed7c9f0   46 seconds ago   47MB
 
 Запустим docker-контейнер с созданным образом и проверим его  работоспособность:
 ```bash
-root@ubuntu-VirtualBox:/home/ubuntu/Diploma-DevOPS-YC/3-Creating-test-application/mynginx# docker run -d sash39/nginx:v1
+root@ubuntu-VirtualBox:/home/ubuntu/Diplom#/3Part/mynginx# docker run -d sash39/nginx:v1
 9b913389d956167691c368a7df01287f3413485523996a5c16afcba2d94ab059
-root@ubuntu-VirtualBox:/home/ubuntu/Diploma-DevOPS-YC/3-Creating-test-application/mynginx# docker ps
+root@ubuntu-VirtualBox:/home/ubuntu/Diplom#/3Part/mynginx# docker ps
 CONTAINER ID   IMAGE             COMMAND                  CREATED         STATUS         PORTS     NAMES
 9b913389d956   sash39/nginx:v1   "/docker-entrypoint.…"   3 seconds ago   Up 3 seconds   80/tcp    tender_mclaren
 ```
 
 Загрузим созданный образ в реестре, предварительно нужно авторизоваться с помощью docker login на DockerHub  [Docker Hub](https://hub.docker.com/repository/docker/sash39/nginx/tags/v1/sha256-383afd13e0bed5e82ac274f82d19ce939ccbd0b2f53a90853aa8b37a0c26edab):
 ```bash
-root@ubuntu-VirtualBox:/home/ubuntu/Diploma-DevOPS-YC/3-Creating-test-application/mynginx# sudo docker push sash39/nginx:v1
+root@ubuntu-VirtualBox:/home/ubuntu/Diplom#/3Part/mynginx# sudo docker push sash39/nginx:v1
 The push refers to repository [docker.io/sash39/nginx]
 7fbbc436633f: Pushed 
 16f5cd97d8ef: Pushed
