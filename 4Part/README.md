@@ -179,7 +179,8 @@ prometheus-operator     ClusterIP   None            <none>        8443/TCP      
 ---
 ### 4.2 Деплой тестового приложения, например, nginx сервер отдающий статическую страницу.
 
-ОДНИМ ИЗ ВАРИАНТОВ, УСТАНОВКА LB METALLB И INGRESS, ОДНАКО ДАЖЕ У ПРЕПОДАВАТЕЛЯ НЕ ЗАРАБОТАЛО С КУБСПРЕЕМ
+ОДНИМ ИЗ ВАРИАНТОВ, КРОМЕ ИСПОЛЬЗОВАНИЯ NODEPORT, ПОПРОБУЕМ УСТАНОВКУ БАЛАНСИРОВЩИКА METALLB И СУЩНОСТЬ INGRESS-CONTROLLER, 
+ПО ВАРИАНТУ, ПРЕДЛОЖЕННОМУ В ДИПЛОМНОМ ЗАДАНИИ ДАЖЕ У ПРЕПОДАВАТЕЛЯ НЕ ЗАРАБОТАЛО С КУБСПРЕЕМ. МЫ РАЗВЕРНУЛИ YANDEX MANAGED KUBERNETES CLUSTER И ДЕПЛОИМ ПРИЛОЖЕНИЕ С ЕГО ПОМОЩЬЮ
 
 ## Описание установки MetalLB
 _https://metallb.io/configuration/_
@@ -189,11 +190,11 @@ _https://metallb.io/installation/_
 Для этого в первую очередь необходимо:
 
 - Установить и инициализовать интерфейс командной строки Yandex Cloud
-yc init
+**yc init**
 - Добавить учетные данные кластера Kubernetes в конфигурационный файл kubectl:
-yc managed-kubernetes cluster get-credentials --id cathadg1h6d500lr7nnc --external
+**yc managed-kubernetes cluster get-credentials --id cathadg1h6d500lr7nnc --external**
 - Используйте утилиту kubectl для работы с кластером Kubernetes
-kubectl get pods
+**kubectl get pods**
 
 
 1. Ставим metallb после подключения к кластеру прям в том же интерфейсе на той же управляющей машине Linux.
