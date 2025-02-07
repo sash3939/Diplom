@@ -1373,3 +1373,4 @@ yandex_iam_service_account.kuber: Destruction complete after 5s
 Destroy complete! Resources: 21 destroyed.
 
 ```
+</details>
