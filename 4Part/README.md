@@ -171,6 +171,8 @@ prometheus-operator     ClusterIP   None            <none>        8443/TCP      
 
 <img width="683" alt="Grafana2" src="https://github.com/user-attachments/assets/8d3dfb5d-72ba-4545-ab94-b8dcf6e5ca9e" />
 
+<img width="683" alt="Grafana2" src="https://github.com/user-attachments/assets/f40d081b-7f60-4d8d-b675-4b090ccecc1a" />
+
 Выведем в grafana Дашборды отображающие состояние Kubernetes кластера:
 <img width="692" alt="Grafana1" src="https://github.com/user-attachments/assets/f52670de-14e7-4f8a-91d4-e90d2fa648ea" />
 
