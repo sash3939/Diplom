@@ -21,7 +21,7 @@
 ---
 ## Этапы выполнения:
 
-### [1 Создание облачной инфраструктуры](./1-Creating-a-cloud-infrastructure/)
+### [1 Создание облачной инфраструктуры](./1Part/)
 ### [2 Создание Kubernetes кластера](./2-Creating-a-Kubernetes%20cluster/)
 ### [3 Создание тестового приложения](./3-Creating%20a%20test%20application/)
 ### [4 Подготовка cистемы мониторинга и деплой приложения](./4-Preparation-of-the-monitoring-system-and-deployment-of-the-application/)
