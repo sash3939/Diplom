@@ -176,8 +176,6 @@ prometheus-operator     ClusterIP   None            <none>        8443/TCP      
 
 <img width="692" alt="Cluster Healthy" src="https://github.com/user-attachments/assets/b5bb3065-38c1-4d43-a475-3be402215815" />
 
-
-
 ---
 ### 4.2 Деплой тестового приложения, например, nginx сервер отдающий статическую страницу.
 
