@@ -220,25 +220,30 @@ helm install metallb metallb/metallb -f values.yaml
 ```
 Мы поставим через манифест. В варианте с kubespray ставил через Helm
 
-4. Чтобы проверить, установился ли metallb:
-kubectl get pods -n metallb-system
-должны увидеть поды speaker и controller в состоянии Run
+4. Чтобы проверить, установился ли metallb:  
+kubectl get pods -n metallb-system  
 
+Должны увидеть поды speaker и controller в состоянии Run  
+
+```
 root@ubuntu-VirtualBox:/home/ubuntu/Diplom# kubectl get pods -n metallb-system
 NAME                          READY   STATUS    RESTARTS      AGE
 controller-7499d4584d-p48rb   1/1     Running   1 (24h ago)   24h
 speaker-svngd                 1/1     Running   0             24h
 speaker-vqhkf                 1/1     Running   0             24h
 speaker-zlvhn                 1/1     Running   0             24h
+```
 
-5. Проверим, что сервисы metallB созданы
+5. Проверим, что сервисы metallB созданы  
+```
 root@ubuntu-VirtualBox:/home/ubuntu/Diplom# kubectl get services -n metallb-system
-   
 NAME                      TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 metallb-webhook-service   ClusterIP   10.96.252.134   <none>        443/TCP   24h
+```
 
-6. Создадим yaml файл с описанием балансировщика  пула IP адресов metallb.yaml
+6. Создадим yaml файл с описанием балансировщика  пула IP адресов metallb.yaml  
 
+```yml
 ---
 apiVersion: metallb.io/v1beta1
 kind: IPAddressPool
@@ -258,18 +263,20 @@ metadata:
 spec:
   ipAddressPools:
   - pool
+```
 
-
-7. Применим конфигурацию
+7. Применим конфигурацию  
 
 kubectl apply -f metallb.yaml
 
+```
 root@ubuntu-VirtualBox:/home/ubuntu/Diplom#  kubectl apply -f metallb.yaml
 ipaddresspool.metallb.io/pool created
 l2advertisement.metallb.io/l2-pool created
+```
 
-8. Проверим, что metalLB корректно работает
-
+8. Проверим, что metalLB корректно работает  
+```
 root@ubuntu-VirtualBox:/home/ubuntu/Diplom#     kubectl get pods -n metallb-system
    
 NAME                         READY   STATUS    RESTARTS   AGE
@@ -277,14 +284,15 @@ controller-bb5f47665-ngwvp   1/1     Running   0          37m
 speaker-5mpdf                1/1     Running   0          37m
 speaker-b8lvt                1/1     Running   0          37m
 speaker-kqc27                1/1     Running   0          37m
+```
 
-
-9. Если необходимо удалить.
+9. Если необходимо удалить.  
+```
 kubectl delete all --all -n metallb-system
+```
 
+## Описание установки INGRESS NGINX  
 
-
-Установка INGRESS NGINX
 0. Установка Helm при необходимости
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
 sudo apt-get install apt-transport-https --yes
