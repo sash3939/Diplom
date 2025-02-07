@@ -211,12 +211,12 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.
 sudo apt-get update  
 sudo apt-get install helm  
 
-
+Затем  
 helm repo add metallb https://metallb.github.io/metallb
 helm install metallb metallb/metallb
 helm install metallb metallb/metallb -f values.yaml
 
-Мы ставим через манифест. В варианте с kubespray ставил через Helm
+Мы поставим через манифест. В варианте с kubespray ставил через Helm
 
 4. Чтобы проверить, установился ли metallb:
 kubectl get pods -n metallb-system
