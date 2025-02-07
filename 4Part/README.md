@@ -312,6 +312,7 @@ version.BuildInfo{Version:"v3.17.0", GitCommit:"301108edc7ac2a8ba79e4ebf5701b0b6
 
    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 
+```   
 ubuntu@ubuntu-VirtualBox:/home/ubuntu/Diplom$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
 Warning: resource namespaces/ingress-nginx is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
 namespace/ingress-nginx configured
@@ -333,29 +334,33 @@ job.batch/ingress-nginx-admission-create created
 job.batch/ingress-nginx-admission-patch created
 ingressclass.networking.k8s.io/nginx created
 validatingwebhookconfiguration.admissionregistration.k8s.io/ingress-nginx-admission created
+```
 
-3. Посмотрим статус контроллера ingress-nginx
+2. Посмотрим статус контроллера ingress-nginx  
+```
 ubuntu@ubuntu-VirtualBox:/home/ubuntu/Diplom$    kubectl get pods -n ingress-nginx
 NAME                                       READY   STATUS      RESTARTS   AGE
 ingress-nginx-admission-create-6mqbt       0/1     Completed   0          44s
 ingress-nginx-admission-patch-tf6xg        0/1     Completed   0          44s
 ingress-nginx-controller-d8c96cf68-5jqcw   1/1     Running     0          44s
+```
 
-4. Посмотрим состояние сервисов kubectl get services -n ingress-nginx
+3. Посмотрим состояние сервисов kubectl get services -n ingress-nginx  
+
+```
 ubuntu@ubuntu-VirtualBox:/home/ubuntu/Diplom$ kubectl get services -n ingress-nginx
 NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)                      AGE
 ingress-nginx-controller             LoadBalancer   10.96.129.218   84.201.148.13   80:31940/TCP,443:31228/TCP   23m
-ingress-nginx-controller-admission   ClusterIP      10.96.220.180   <none>          443/TCP                      23m
+ingress-nginx-controller-admission   ClusterIP      10.96.220.180   <none>          443/TCP                      23m  
+```
 
+**Создадим манифесты для нашего приложения, service, deployment, namespace и ingress и применим манифест**
 
+4. Вносим изменения в манифест diplom-manifest.yaml  
 
-Создадим манифесты для нашего приложения, service, deployment, namespace и ingress и применим манифест
+- Так как у нас установлен балансировщик Metallb и Ingress controller, нам необходимо в сервисе изменить тип на LoadBalancer  
 
-
-1. Вносим изменения в манифест diplom-manifest.yaml
-
-- Так как у нас установлен балансировщик Metallb и Ingress controller, нам необходимо в сервисе изменить тип на LoadBalancer
-   
+```yml
 ---
 apiVersion: v1
 kind: Service
@@ -373,9 +378,12 @@ spec:
       port: 80
       targetPort: 80
       protocol: TCP
+```  
 
-- Добавляем ресурс ingress-resource для приложения и убедитесь, что оно доступен снаружи по 80 порту
+- Добавляем ресурс ingress-resource для приложения и убедитесь, что оно доступен снаружи по 80 порту  
+
 !!!Этот пункт делаем в случае, когда у нас создана зона DNS, настроена A запись, прописаны у провайдера DNC яндекса
+
 ```yml
 ---
 apiVersion: networking.k8s.io/v1
@@ -406,13 +414,13 @@ spec:
                   name: app
 ```
 
-Применяем манифест
+Применяем манифест  
 
 kubectl apply -f diplom-manifest.yaml 
 
+5. Проверяем  
 
-3. Проверяем
-
+```
 root@ubuntu-VirtualBox:/home/ubuntu/Diplom/4Part# kubectl get svc -n monitoring
 NAME                    TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
 alertmanager-main       ClusterIP      10.96.165.134   <none>        9093/TCP,8080/TCP            4h42m
@@ -428,12 +436,12 @@ prometheus-operator     ClusterIP      None            <none>        8443/TCP   
 root@ubuntu-VirtualBox:/home/ubuntu/Diplom2/4Part# kubectl get svc -n diplom
 NAME        TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
 svc-nginx   LoadBalancer   10.96.174.39   <pending>     80:32509/TCP   48m
-
+```
 
 
 Для того, чтобы заработало по доменному имени, необходимо на хостинге, где есть свое купленное доменное имя настроить на днс ЯО, а в ЯО создать зону с сайтом kms-netology.ru. и создать запись в ЯО. К сожалению не удалось с учетом кубер кластера это сделать средствами терраформ
 
 
-Проверим Http доступ к тестовому приложению:
-![Скриншот-4.3](./img/.....)
-![Скриншот-4.3](.img/......)
+Проверим Http доступ к тестовому приложению:  
+<img width="278" alt="Web application work" src="https://github.com/user-attachments/assets/85171938-6c66-4107-a15a-07ce53157b60" />
+
