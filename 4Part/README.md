@@ -203,6 +203,7 @@ _https://metallb.io/installation/_
 
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml
 
+```
 Предварительно установить Helm:  
 curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null  
 sudo apt-get install apt-transport-https --yes  
@@ -210,12 +211,13 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.
  debian.list  
 sudo apt-get update  
 sudo apt-get install helm  
-
+```
 Затем  
+```
 helm repo add metallb https://metallb.github.io/metallb
 helm install metallb metallb/metallb
 helm install metallb metallb/metallb -f values.yaml
-
+```
 Мы поставим через манифест. В варианте с kubespray ставил через Helm
 
 4. Чтобы проверить, установился ли metallb:
