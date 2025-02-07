@@ -1,4 +1,4 @@
-<img width="1007" alt="Nodes Cluster" src="https://github.com/user-attachments/assets/976b7256-6826-4330-b93f-ed077fb14645" /># Создание Kubernetes кластера
+# Создание Kubernetes кластера
 <details>
 	<summary></summary>
       <br>
@@ -1017,10 +1017,6 @@ resource "yandex_kubernetes_node_group" "worker-nodes-d" {
 ```
 
 Проверим, что кластер активный и поднялся
-<img width="941" alt="Cluster Active" src="https://github.com/user-attachments/assets/585987cd-b5cb-445c-9799-d2d708de8249" />
+(<img width="941" alt="Cluster Active" src="https://github.com/user-attachments/assets/585987cd-b5cb-445c-9799-d2d708de8249" />
 
-
-
-
-![Screen Cluster Active](./img/Скриншот-4.1.png)
-![Screen Nodes Cluster]
+<img width="1007" alt="Nodes Cluster" src="https://github.com/user-attachments/assets/e424c9f1-1a34-4019-ba68-3dadc9f06200" />
