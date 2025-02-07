@@ -167,13 +167,15 @@ prometheus-operator     ClusterIP   None            <none>        8443/TCP      
 ```
 
 Проверим Http доступ к web интерфейсу grafana:
-![Скриншот-4.1](./img/Скриншот-4.1.png)
-![Скриншот-4.1](./img/Скриншот-4.1.png)
-![Скриншот-4.1](./img/Скриншот-4.1.png)
+<img width="683" alt="Grafana" src="https://github.com/user-attachments/assets/4b330418-1bc4-4963-95d5-f08cb52b0b81" />
+
+<img width="683" alt="Grafana2" src="https://github.com/user-attachments/assets/8d3dfb5d-72ba-4545-ab94-b8dcf6e5ca9e" />
 
 Выведем в grafana Дашборды отображающие состояние Kubernetes кластера:
-![Скриншот-4.2](./img/Скриншот-4.2.png)
-Screen Cluster Healthy
+<img width="692" alt="Grafana1" src="https://github.com/user-attachments/assets/f52670de-14e7-4f8a-91d4-e90d2fa648ea" />
+
+<img width="692" alt="Cluster Healthy" src="https://github.com/user-attachments/assets/b5bb3065-38c1-4d43-a475-3be402215815" />
+
 
 
 ---
