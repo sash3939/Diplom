@@ -1,0 +1,52 @@
+name: Deploy to Yandex Cloud Kubernetes
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Шаг 1: Клонирование репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Шаг 2: Установка Yandex CLI
+      - name: Install Yandex Cloud CLI
+        run: |
+          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+          echo "${HOME}/yandex-cloud/bin" >> $GITHUB_PATH
+      # Шаг 3: Аутентификация в Yandex Cloud
+      - name: Authenticate in Yandex Cloud
+        env:
+          YC_SERVICE_ACCOUNT_KEY: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
+          YC_CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
+          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
+        run: |
+          echo "${YC_SERVICE_ACCOUNT_KEY}" > yc-sa-key.json
+          yc config set service-account-key yc-sa-key.json
+          yc config set cloud-id "${YC_CLOUD_ID}"
+          yc config set folder-id "${YC_FOLDER_ID}"
+      # Шаг 4: Установка kubectl
+      - name: Install kubectl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kubectl
+      # Шаг 5: Настройка подключения к Kubernetes
+      - name: Configure kubectl
+        env:
+          YC_SERVICE_ACCOUNT_KEY: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
+          YC_CLUSTER_ID: ${{ secrets.YC_CLUSTER_ID }}
+        run: |
+          yc managed-kubernetes cluster get-credentials --id "${YC_CLUSTER_ID}" --external
+          kubectl get nodes
+      # Шаг 6: Деплой приложения
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl config view
+          kubectl get nodes
+          kubectl get pods --all-namespaces
+          kubectl create deployment nginx --image=sash39/nginx:1.13
