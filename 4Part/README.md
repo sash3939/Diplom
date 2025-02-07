@@ -186,7 +186,8 @@ prometheus-operator     ClusterIP   None            <none>        8443/TCP      
 _https://metallb.io/configuration/_  
 _https://metallb.io/installation/_
 
-0. Подключаемся к Cluster Kubernetes в Yandex
+0. Подключаемся к Cluster Kubernetes в Yandex  
+
 Для этого в первую очередь необходимо:
 
 - Установить и инициализовать интерфейс командной строки Yandex Cloud
