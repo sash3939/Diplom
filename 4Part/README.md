@@ -197,18 +197,19 @@ _https://metallb.io/installation/_
 - Используйте утилиту kubectl для работы с кластером Kubernetes  
 **kubectl get pods**
 
-
 1. Ставим metallb после подключения к кластеру прям в том же интерфейсе на той же управляющей машине Linux.
 
-2. Установка по манифесту или через helm:
+2. Установка по манифесту или через helm:  
+
 kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.9/config/manifests/metallb-native.yaml
 
-Предварительно установить Helm:
-curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null
-sudo apt-get install apt-transport-https --yes
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
-sudo apt-get update
-sudo apt-get install helm
+Предварительно установить Helm:  
+curl https://baltocdn.com/helm/signing.asc | gpg --dearmor | sudo tee /usr/share/keyrings/helm.gpg > /dev/null  
+sudo apt-get install apt-transport-https --yes  
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable- 
+ debian.list  
+sudo apt-get update  
+sudo apt-get install helm  
 
 
 helm repo add metallb https://metallb.github.io/metallb
