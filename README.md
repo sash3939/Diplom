@@ -22,7 +22,7 @@
 ## Этапы выполнения:
 
 ### [1 Создание облачной инфраструктуры](./1Part/)
-### [2 Создание Kubernetes кластера](./2-Creating-a-Kubernetes%20cluster/)
-### [3 Создание тестового приложения](./3-Creating%20a%20test%20application/)
-### [4 Подготовка cистемы мониторинга и деплой приложения](./4-Preparation-of-the-monitoring-system-and-deployment-of-the-application/)
-### [5 Установка и настройка CI/CD](./5-Installing%20and%20configuring%20CICD/)
+### [2 Создание Kubernetes кластера](./2Part/)
+### [3 Создание тестового приложения](./3Part/)
+### [4 Подготовка cистемы мониторинга и деплой приложения](./4Part/)
+### [5 Установка и настройка CI/CD](./5Part/)
