@@ -35,14 +35,16 @@
 
 
 Добавим токен в `Settings -> Secrets and variables -> Actions secrets and variables` в переменную `MY_TOKEN_DOCKER_HUB`.  
-В переменную `USER_DOCKER_HUB` добавим имя пользователя от Docker Hub `sash39`.  
-![Скриншот-5.2](./img/Скриншот-5.2.png) Secrets for App
+В переменную `USER_DOCKER_HUB` добавим имя пользователя от Docker Hub `sash39`.   
+
+<img width="1028" alt="Secrets for App" src="https://github.com/user-attachments/assets/0f647abc-469e-4129-a07b-f5ed7099cb2d" />
+
 
 
 Далее, создадим `workflow` файл для автоматической сборки приложения nginx:  
 Перейдем на вкладку `Actions`, выполним `New workflow`, затем `Simple workflow` (Config). Создадим файл `../.github/workflows/actions-build.yml`.
 
-actions-build.yml
+build.yml
 ```yml
 name: Сборка Docker-образа
 
@@ -73,9 +75,8 @@ jobs:
         run: |
           docker push ${{ secrets.USER_DOCKER_HUB }}/nginx:latest
 ```
-
-Перед тем, как выполнить коммит, нам необходимо в своем приложении (заранее сделать git clone https://github.com/sash3939/Application.git к себе на локальную машину, создать файл build.yaml) создать манифест build.yaml,
-который затем отправить с помощью коммит в свой репозиторий. После коммита автоматически начнется выполнение сблорки образа и отправки его на DockerHub с использованием тех секретов, которые ранее мы прописали.
+  
+Перед тем, как выполнить коммит, нам необходимо в своем приложении (заранее сделать git clone https://github.com/sash3939/Application.git к себе на локальную машину) создать манифест build.yaml, который затем отправить с помощью коммит в свой репозиторий [Application](https://github.com/sash3939/Application.git). После коммита автоматически начнется выполнение сборки образа и отправки его на DockerHub с использованием тех секретов, которые ранее мы прописали.
 
 
 
