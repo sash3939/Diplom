@@ -954,7 +954,7 @@ jobs:
 В свою очередь на `docker hub` появляется загруженный образ:  
 <img width="1017" alt="log DockerHub" src="https://github.com/user-attachments/assets/9daf9caa-d842-4e08-aa9e-fd45fd6999ff" />
 
-Интерфейс ci/cd доступен по http
+Интерфейс ci/cd доступен по http  
 <img width="686" alt="сервис http" src="https://github.com/user-attachments/assets/f66f1d22-6f0a-4edf-8fc4-b419fc17e943" />
 
 
