@@ -955,7 +955,7 @@ jobs:
 <img width="1017" alt="log DockerHub" src="https://github.com/user-attachments/assets/9daf9caa-d842-4e08-aa9e-fd45fd6999ff" />
 
 Ссылка на [docker hub](https://hub.docker.com/repository/docker/sash39/nginx/general)  
-Ссылка на [actions](https://github.com/sash3939/Application/actions)
+Ссылка на [actions](https://github.com/sash3939/Application/actions)  
 Ссылка на [grafana](http://130.193.46.226:32000)
 
 
