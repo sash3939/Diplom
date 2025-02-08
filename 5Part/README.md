@@ -42,7 +42,10 @@
 
 
 Далее, создадим `workflow` файл для автоматической сборки приложения nginx:  
-Перейдем на вкладку `Actions`, выполним `New workflow`, затем `Simple workflow` (Config). Создадим файл `../.github/workflows/actions-build.yml`.
+Перейдем на вкладку `Actions`, выполним `New workflow`, затем `Simple workflow` (Config). Создадим файл `../.github/workflows/actions-build.yml`.  
+При первом входе в раздел набираем в поисковой строке `Simple Workflow` и переходим в `Configure`  
+
+<img width="1233" alt="Simple workflow" src="https://github.com/user-attachments/assets/e7f2138a-992a-42c6-8eca-da185a393ad7" />
 
 build.yml
 ```yml
@@ -79,9 +82,9 @@ jobs:
 Перед тем, как выполнить коммит, нам необходимо в своем приложении (заранее сделать git clone https://github.com/sash3939/Application.git к себе на локальную машину) создать манифест build.yaml, который затем отправить с помощью коммит в свой репозиторий [Application](https://github.com/sash3939/Application.git). После коммита автоматически начнется выполнение сборки образа и отправки его на DockerHub с использованием тех секретов, которые ранее мы прописали.
 
 
-
 Перейдем в раздел **Actions**, где видим, что `Workflow file` успешно выполнился.
-![Скриншот-5.3](./img/Скриншот-5.3.png) screen workflow
+<img width="1277" alt="build done" src="https://github.com/user-attachments/assets/5b199a01-0365-4392-a63e-c718f83976ed" />
+
 
 
 Лог выполнения `Workflow file`:
@@ -315,8 +318,10 @@ jobs:
 </details>
 
 
-В свою очередь на `docker hub` появляется загруженный образ:
-![Скриншот-5.4](./img/Скриншот-5.4.png) screen change Docker hub after workflow
+В свою очередь на `docker hub` появляется загруженный образ:  
+
+<img width="1268" alt="change Docker hub after workflow" src="https://github.com/user-attachments/assets/78486c0a-7639-4142-ab96-7953dffdb70e" />
+
 
 ССЫЛКА_НА_ДОКЕРХАБ
 
