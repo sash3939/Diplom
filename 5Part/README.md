@@ -956,6 +956,7 @@ jobs:
 
 Ссылка на [docker hub](https://hub.docker.com/repository/docker/sash39/nginx/general)  
 Ссылка на [actions](https://github.com/sash3939/Application/actions)  
-Ссылка на [grafana](http://130.193.46.226:32000)
+Ссылка на [grafana](http://130.193.46.226:32000)  
+Ссылка на приложение [app](http://158.160.38.207:32080/)
 
 
