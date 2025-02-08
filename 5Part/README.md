@@ -29,8 +29,10 @@
 
 Для автоматической сборки и docker-образа при коммите в репозиторий с тестовым приложением воспользуемся платформой CI/CD GitHub Actions.
 
-Создадим в DockerHub секретный токен `my token`.
-![Скриншот-5.1](./img/Скриншот-5.1.png)
+Создадим в DockerHub секретный токен `my token`.  
+
+<img width="950" alt="Personal Access Token" src="https://github.com/user-attachments/assets/7c58f06f-2e28-44b1-b9a7-3bf621e3e477" />
+
 
 Добавим токен в `Settings -> Secrets and variables -> Actions secrets and variables` в переменную `MY_TOKEN_DOCKER_HUB`.  
 В переменную `USER_DOCKER_HUB` добавим имя пользователя от Docker Hub `sash39`.  
