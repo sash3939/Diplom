@@ -323,7 +323,7 @@ jobs:
 <img width="1268" alt="change Docker hub after workflow" src="https://github.com/user-attachments/assets/78486c0a-7639-4142-ab96-7953dffdb70e" />
 
 
-ССЫЛКА_НА_ДОКЕРХАБ
+[ССЫЛКА_НА_ДОКЕРХАБ](https://hub.docker.com/repository/docker/sash39/nginx/general)
 
 ---
 ## 5.2 Автоматический деплой нового docker образа.
