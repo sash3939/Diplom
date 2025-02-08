@@ -412,7 +412,7 @@ jobs:
           kubectl create deployment nginx --image=sash39/nginx:1.0.6
 ```
   
-Выполним commit c лэйблом `v1.0.x`.
+Выполним commit c лэйблом `v1.0.x` или `latest`.
 
 Перейдем в раздел **Actions**, где видим, что `Workflow file` успешно выполнился.
 
