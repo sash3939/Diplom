@@ -47,7 +47,7 @@
 
 <img width="1233" alt="Simple workflow" src="https://github.com/user-attachments/assets/e7f2138a-992a-42c6-8eca-da185a393ad7" />
 
-build.yml
+[build.yml](https://github.com/sash3939/Application/blob/main/.github/workflows/build.yml)
 ```yml
 name: Сборка Docker-образа
 
