@@ -326,16 +326,11 @@ jobs:
 [ССЫЛКА_НА_ДОКЕРХАБ](https://hub.docker.com/repository/docker/sash39/nginx/general)
 
 ---
-## 5.2 Автоматический деплой нового docker образа.
+## 5.2 Автоматический деплой нового docker образа.  
 
-настроим автоматичесикй деплой нового докер образа
-
-
-Так как будем использовать кубер кластер от Яндекса, для начала настроим подключение к кластеру
-
-Для этого создадим 4 основных переменные, в значения которых внесем данные от нашего сервисного аккаунта
-
-Сервисный аккаунт для куберов я создавал в самом начале работы, можно вернуться в начало я там это упомянул
+В данном разделе настроим автоматичесикй деплой нового докер образа  
+В первую очередь в нашем случае нам необходимо настроить подключение к кластеру
+Для этого создадим 4 основные переменные, в значения которых внесем данные от нашего сервисного аккаунта (отдельный аккаунт для Kubernetes) и парметры id  
 
 Создаем переменные
 
@@ -349,99 +344,80 @@ jobs:
 • YC_CLUSTER_ID — ID Kubernetes-кластера в Яндекс Облаке.
 ```
 
-Screen YC keys and IDs for deploy
+<img width="988" alt="YC keys and IDs for deploy" src="https://github.com/user-attachments/assets/174318c8-97a2-4ac2-8996-827db961e73c" />
 
 
+Cоздадим `workflow` файл для автоматической сборки приложения nginx при создании тега, а также его автоматического развертывания в кластер Kubernetes.  
 
-Cоздадим `workflow` файл для автоматической сборки приложения nginx при создании тега, а также его автоматического развертывания в кластер Kubernetes.
-
-
-[deploy.yml](https://github.com/mezhibo/Test-application/blob/538e45b7ad2327353683b4fa212652e745448e7f/.github/workflows/deploy.yml)
+[deploy.yml](https://github.com/sash3939/Application/blob/main/.github/workflows/deploy.yml)
 
 
 ```yml
-name: Сборка и Развертывание
+
+name: Deploy to Yandex Cloud Kubernetes
+
 on:
   push:
     branches:
-      - '*'
-  create:
-    tags:
-      - '*'
-env:
-  IMAGE_TAG: baryshnikovnv/nginx
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Проверка кода
-        uses: actions/checkout@v4
-
-      - name: Установка Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Вход на Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.USER_DOCKER_HUB }}
-          password: ${{ secrets.MY_TOKEN_DOCKER_HUB }}
-
-      - name: Определяем версию
-        run: |
-          echo "GITHUB_REF: ${GITHUB_REF}"
-          if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
-            VERSION=${GITHUB_REF#refs/tags/}
-          else
-            VERSION=$(git log -1 --pretty=format:%B | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' || echo "")
-          fi
-          if [[ -z "$VERSION" ]]; then
-            echo "No version found in the commit message or tag"
-            exit 1
-          fi
-          VERSION=${VERSION//[[:space:]]/}  # Remove any spaces
-          echo "Using version: $VERSION"
-          echo "VERSION=${VERSION}" >> $GITHUB_ENV
-
-      - name: Сборка и push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ env.IMAGE_TAG }}:${{ env.VERSION }}
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+
     steps:
-      - name: Проверка кода
+      # Шаг 1: Клонирование репозитория
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Установка kubectl
+      # Шаг 2: Установка Yandex CLI
+      - name: Install Yandex Cloud CLI
         run: |
-          curl -LO "https://dl.k8s.io/release/v1.30.3/bin/linux/amd64/kubectl"
-          chmod +x ./kubectl
-          sudo mv ./kubectl /usr/local/bin/kubectl
-          kubectl version --client
+          curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+          echo "${HOME}/yandex-cloud/bin" >> $GITHUB_PATH
 
-      - name: Конфигурирование kubectl, развертыввание и деплой
+      # Шаг 3: Аутентификация в Yandex Cloud
+      - name: Authenticate in Yandex Cloud
+        env:
+          YC_SERVICE_ACCOUNT_KEY: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
+          YC_CLOUD_ID: ${{ secrets.YC_CLOUD_ID }}
+          YC_FOLDER_ID: ${{ secrets.YC_FOLDER_ID }}
         run: |
-          echo "${{ secrets.KUBECONFIG }}" > config.yml
-          export KUBECONFIG=config.yml
+          echo "${YC_SERVICE_ACCOUNT_KEY}" > yc-sa-key.json
+          yc config set service-account-key yc-sa-key.json
+          yc config set cloud-id "${YC_CLOUD_ID}"
+          yc config set folder-id "${YC_FOLDER_ID}"
+
+      # Шаг 4: Установка kubectl
+      - name: Install kubectl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kubectl
+
+      # Шаг 5: Настройка подключения к Kubernetes
+      - name: Configure kubectl
+        env:
+          YC_SERVICE_ACCOUNT_KEY: ${{ secrets.YC_SERVICE_ACCOUNT_KEY }}
+          YC_CLUSTER_ID: ${{ secrets.YC_CLUSTER_ID }}
+        run: |
+          yc managed-kubernetes cluster get-credentials --id "${YC_CLUSTER_ID}" --external
+          kubectl get nodes
+
+      # Шаг 6: Деплой приложения
+      - name: Deploy to Kubernetes
+        run: |
           kubectl config view
           kubectl get nodes
           kubectl get pods --all-namespaces
-          kubectl create deployment nginx --image=baryshnikovnv/nginx:1.0.0
-          kubectl rollout status deployment.v1.apps/nginx
-    env:
-      KUBECONFIG: ${{ secrets.KUBECONFIG }}
+          kubectl create deployment nginx --image=sash39/nginx:1.0.6
 ```
-
+  
 Выполним commit c лэйблом `v1.0.x`.
 
 Переходим в пайплайны, и видим что все пайплайны отработали
 
-Screen after deploy github
+<img width="1222" alt="after deploy github" src="https://github.com/user-attachments/assets/c20c2928-a9b4-4f61-9ceb-248abe2b4fbe" />
+
 
 
 Перейдем в раздел **Actions**, где видим, что `Workflow file` успешно выполнился.
