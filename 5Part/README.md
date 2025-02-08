@@ -416,8 +416,10 @@ jobs:
 
 Переходим в пайплайны, и видим что все пайплайны отработали
 
-<img width="1222" alt="after deploy github" src="https://github.com/user-attachments/assets/c20c2928-a9b4-4f61-9ceb-248abe2b4fbe" />
+<img width="1222" alt="after deploy github" src="https://github.com/user-attachments/assets/c20c2928-a9b4-4f61-9ceb-248abe2b4fbe" />  
 
+Результат работы деплоя
+<img width="1273" alt="deploy done" src="https://github.com/user-attachments/assets/3a11b530-0951-4077-ac5b-7e04b323e51e" />
 
 
 Перейдем в раздел **Actions**, где видим, что `Workflow file` успешно выполнился.
