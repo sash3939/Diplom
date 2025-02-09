@@ -410,6 +410,10 @@ jobs:
           kubectl get nodes
           kubectl get pods --all-namespaces
           kubectl create deployment nginx --image=sash39/nginx:1.0.6
+      - name: Expose Nginx Deployment
+        run: |
+          kubectl expose deployment nginx --type=LoadBalancer --port=80 --target-port=80
+
 ```
   
 Выполним commit c лэйблом `v1.0.x` или `latest`.
