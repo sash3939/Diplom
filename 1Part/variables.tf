@@ -27,72 +27,35 @@ variable "account_name" {
 }
 
 
-#-----------------------------------------
-
+#-------------revision---------
 variable "vpc_name" {
+  description = "Name VPC"
+  default = "vpc0"
   type        = string
-  default     = "vpc0"
-  description = "VPC network"
 }
 
-variable "subnet-a" {
-  type        = string
-  default     = "subnet-a"
-  description = "subnet name"
+variable "subnets" {
+  type = map(object({
+    zone           = string
+    cidr_block     = string
+  }))
+  default = {
+    subnet-a = {
+      zone       = "ru-central1-a"
+      cidr_block = "10.0.1.0/24"
+    }
+    subnet-b = {
+      zone       = "ru-central1-b"
+      cidr_block = "10.0.2.0/24"
+    }
+    subnet-d = {
+      zone       = "ru-central1-d"
+      cidr_block = "10.0.3.0/24"
+    }
+  }
 }
 
-variable "subnet-b" {
-  type        = string
-  default     = "subnet-b"
-  description = "subnet name"
-}
-
-variable "subnet-d" {
-  type        = string
-  default     = "subnet-d"
-  description = "subnet name"
-}
-
-
-#----------------------------------------
-
-variable "zone-a" {
-  type        = string
-  default     = "ru-central1-a"
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-
-variable "zone-b" {
-  type        = string
-  default     = "ru-central1-b"
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-
-variable "zone-d" {
-  type        = string
-  default     = "ru-central1-d"
-  description = "https://cloud.yandex.ru/docs/overview/concepts/geo-scope"
-}
-
-#--------------------------------------
-
-variable "cidr-a" {
-  type        = list(string)
-  default     = ["10.0.1.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
-
-variable "cidr-b" {
-  type        = list(string)
-  default     = ["10.0.2.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
-
-variable "cidr-d" {
-  type        = list(string)
-  default     = ["10.0.3.0/24"]
-  description = "https://cloud.yandex.ru/docs/vpc/operations/subnet-create"
-}
+#----------end-revision---------------------
 
 
 #---------------K8sCluster-----------------

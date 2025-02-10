@@ -3,26 +3,16 @@ resource "yandex_vpc_network" "vpc0" {
   name = var.vpc_name
 }
 
-#Создадим в VPC subnet c названием subnet-a
-resource "yandex_vpc_subnet" "subnet-a" {
-  name           = var.subnet-a
-  zone           = var.zone-a
+#-----------------revision------------
+
+# Создание подсетей в VPC
+resource "yandex_vpc_subnet" "subnets" {
+  for_each = var.subnets
+
+  name           = each.key
+  zone           = each.value.zone
   network_id     = yandex_vpc_network.vpc0.id
-  v4_cidr_blocks = var.cidr-a
+  v4_cidr_blocks = [each.value.cidr_block]
 }
 
-#Создание в VPC subnet с названием subnet-b
-resource "yandex_vpc_subnet" "subnet-b" {
-  name           = var.subnet-b
-  zone           = var.zone-b
-  network_id     = yandex_vpc_network.vpc0.id
-  v4_cidr_blocks = var.cidr-b
-}
-
-#Создание в VPC subnet с названием subnet-d
-resource "yandex_vpc_subnet" "subnet-d" {
-  name           = var.subnet-d
-  zone           = var.zone-d
-  network_id     = yandex_vpc_network.vpc0.id
-  v4_cidr_blocks = var.cidr-d
-}
+#----------end revision------------
